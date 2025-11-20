@@ -10,7 +10,7 @@ def create_order(
     tickets: list[dict],
     username: str,
     date: datetime = None,
-):
+) -> None:
     with transaction.atomic():
         user = User.objects.get(username=username)
         order = Order(
@@ -35,8 +35,8 @@ def create_order(
             for ticket in tickets
         ]
 
-        for t in tickets_objs:
-            t.full_clean()  # проверка перед сохранением
+        for ticket in tickets_objs:
+            ticket.full_clean()  # проверка перед сохранением
         Ticket.objects.bulk_create(tickets_objs)
 
 

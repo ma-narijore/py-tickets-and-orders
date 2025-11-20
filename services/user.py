@@ -1,4 +1,4 @@
-from django.db.models import QuerySet
+# from django.db.models import QuerySet
 
 from db.models import User
 
@@ -9,8 +9,8 @@ def create_user(
         email: str = None,
         first_name: str = None,
         last_name: str = None,
-):
-    user = User.objects.create_user(
+) -> None:
+    User.objects.create_user(
         username=username,
         password=password,
         email=email or "",
@@ -23,7 +23,6 @@ def get_user(user_id: int) -> User:
     return User.objects.get(id=user_id)
 
 
-
 def update_user(
         user_id: int,
         username: str = None,
@@ -31,7 +30,7 @@ def update_user(
         email: str = None,
         first_name: str = None,
         last_name: str = None,
-):
+) -> None:
     query = User.objects.get(id=user_id)
     if username:
         query.username = username
@@ -44,5 +43,10 @@ def update_user(
     if last_name:
         query.last_name = last_name
 
-    query.save(update_fields=["username", "password", "email", "first_name", "last_name"])
-
+    query.save(update_fields=[
+        "username",
+        "password",
+        "email",
+        "first_name",
+        "last_name"]
+    )
