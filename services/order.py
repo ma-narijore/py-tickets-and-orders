@@ -17,7 +17,6 @@ def create_order(
             user=user,
         )
 
-        # Django validation
         order.full_clean()
         order.save()
 
